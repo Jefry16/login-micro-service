@@ -1,5 +1,6 @@
 <?php
 
+use Auth\Jwt;
 class Controller
 {
     protected $errors = [];
@@ -25,14 +26,14 @@ class Controller
         if ($admin !== false && password_verify($data['password'], $admin['password'])) {
             $jwt = new Jwt($_ENV['SECRET_KEY']);
             $token = $jwt->encode(['sub' => $admin['id']]);
-            $this->respondCreated($token);
+            $this->respondOk($token);
         } else {
             $this->respondNotAuthorized();
         }
     }
 
 
-    protected function respondCreated(string $token): void
+    protected function respondOk(string $token): void
     {
         http_response_code(200);
         echo json_encode(['a_t' => $token]);

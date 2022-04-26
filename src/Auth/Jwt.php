@@ -1,5 +1,9 @@
 <?php
 
+namespace Auth;
+
+use InvalidArgumentException;
+
 class Jwt
 {
     public function __construct(private string $key)
